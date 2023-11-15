@@ -9,28 +9,30 @@
                     <v-icon v-else icon="mdi mdi-menu-down"></v-icon>
                 </button>
             </p>
-            <v-table v-if="showArmyBuildingsTable">
-              <thead>
-                <tr>
-                  <th class="text-left" style="font-weight: 700; color: #000;">Name</th>
-                  <th class="text-left" style="font-weight: 700; color: #000;">Seconds</th>
-                  <th class="text-left" style="font-weight: 700; color: #000;">Minutes</th>
-                  <th class="text-left" style="font-weight: 700; color: #000;">Hours</th>
-                  <th class="text-left" style="font-weight: 700; color: #000;">Days</th>
-                  <th class="text-left" style="font-weight: 700; color: #000;">Price</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="armyBuilding in currentArmyBuildings" :key="armyBuilding.name">
-                    <td>{{ armyBuilding.name }}</td>
-                    <td>{{ armyBuilding.seconds }}</td>
-                    <td>{{ armyBuilding.minutes }}</td>
-                    <td>{{ armyBuilding.hours }}</td>
-                    <td>{{ armyBuilding.days }}</td>
-                    <td>{{ armyBuilding.price }}</td>
-                </tr>
-              </tbody>
-            </v-table>
+            <v-lazy>
+                <v-table v-if="showArmyBuildingsTable">
+                  <thead>
+                    <tr>
+                      <th class="text-left" style="font-weight: 700; color: #000;">Name</th>
+                      <th class="text-left" style="font-weight: 700; color: #000;">Seconds</th>
+                      <th class="text-left" style="font-weight: 700; color: #000;">Minutes</th>
+                      <th class="text-left" style="font-weight: 700; color: #000;">Hours</th>
+                      <th class="text-left" style="font-weight: 700; color: #000;">Days</th>
+                      <th class="text-left" style="font-weight: 700; color: #000;">Price</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="armyBuilding in currentArmyBuildings" :key="armyBuilding.name">
+                        <td>{{ armyBuilding.name }}</td>
+                        <td>{{ armyBuilding.seconds }}</td>
+                        <td>{{ armyBuilding.minutes }}</td>
+                        <td>{{ armyBuilding.hours }}</td>
+                        <td>{{ armyBuilding.days }}</td>
+                        <td>{{ armyBuilding.price }}</td>
+                    </tr>
+                  </tbody>
+                </v-table>
+            </v-lazy>
           </v-card-text>
         </v-card-item>
       </v-card>

@@ -9,28 +9,30 @@
                     <v-icon v-else icon="mdi mdi-menu-down"></v-icon>
                 </button>
             </p>
-            <v-table v-if="showResourcesBuildingsTable">
-              <thead>
-                <tr>
-                  <th class="text-left" style="font-weight: 700; color: #000;">Name</th>
-                  <th class="text-left" style="font-weight: 700; color: #000;">Seconds</th>
-                  <th class="text-left" style="font-weight: 700; color: #000;">Minutes</th>
-                  <th class="text-left" style="font-weight: 700; color: #000;">Hours</th>
-                  <th class="text-left" style="font-weight: 700; color: #000;">Days</th>
-                  <th class="text-left" style="font-weight: 700; color: #000;">Price</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="resourcesBuilding in currentResourcesBuildings" :key="resourcesBuilding.name">
-                    <td>{{ resourcesBuilding.name }}</td>
-                    <td>{{ resourcesBuilding.seconds }}</td>
-                    <td>{{ resourcesBuilding.minutes }}</td>
-                    <td>{{ resourcesBuilding.hours }}</td>
-                    <td>{{ resourcesBuilding.days }}</td>
-                    <td>{{ resourcesBuilding.price }}</td>
-                </tr>
-              </tbody>
-            </v-table>
+            <v-lazy>
+                <v-table v-if="showResourcesBuildingsTable">
+                  <thead>
+                    <tr>
+                      <th class="text-left" style="font-weight: 700; color: #000;">Name</th>
+                      <th class="text-left" style="font-weight: 700; color: #000;">Seconds</th>
+                      <th class="text-left" style="font-weight: 700; color: #000;">Minutes</th>
+                      <th class="text-left" style="font-weight: 700; color: #000;">Hours</th>
+                      <th class="text-left" style="font-weight: 700; color: #000;">Days</th>
+                      <th class="text-left" style="font-weight: 700; color: #000;">Price</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="resourcesBuilding in currentResourcesBuildings" :key="resourcesBuilding.name">
+                        <td>{{ resourcesBuilding.name }}</td>
+                        <td>{{ resourcesBuilding.seconds }}</td>
+                        <td>{{ resourcesBuilding.minutes }}</td>
+                        <td>{{ resourcesBuilding.hours }}</td>
+                        <td>{{ resourcesBuilding.days }}</td>
+                        <td>{{ resourcesBuilding.price }}</td>
+                    </tr>
+                  </tbody>
+                </v-table>
+            </v-lazy>
           </v-card-text>
         </v-card-item>
       </v-card>

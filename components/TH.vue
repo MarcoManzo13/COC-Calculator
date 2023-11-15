@@ -16,6 +16,8 @@
       <ArmyBuildings :THLevelMenu="THLevelMenu" :THLevels="THLevels"/>
       <v-divider/>
       <Heroes :THLevelMenu="THLevelMenu" :THLevels="THLevels"/>
+      <v-divider />
+      <Laboratory :THLevelMenu="THLevelMenu" :THLevels="THLevels"/>
     </div>
 </template>
   
