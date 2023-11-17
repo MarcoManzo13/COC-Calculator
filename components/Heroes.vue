@@ -9,6 +9,9 @@
                     <v-icon v-else icon="mdi mdi-menu-down"></v-icon>
                 </button>
             </p>
+            <v-card-text v-if="showHeroesTable">
+                <p style="font-size: large; font-style: italic;">Total time until the Heroes are completely upgraded: <span style="font-weight: 700;">{{ getTimer() }}</span></p>
+            </v-card-text>
             <v-lazy>
                 <v-table v-if="showHeroesTable">
                   <thead>
@@ -392,6 +395,29 @@
         methods: {
             toggleTableVisibility() {
                 this.showHeroesTable = !this.showHeroesTable;
+            },
+            
+            sumProperty(propertyName) {
+                return this.currentHeroes.reduce((total, Heroe) => total + Heroe[propertyName], 0);
+            },
+        
+            getTimer() {
+                let totalSeconds = this.sumProperty('seconds') + this.sumProperty('minutes') * 60 + this.sumProperty('hours') * 3600 + this.sumProperty('days') * 86400;
+                
+                const days = Math.floor(totalSeconds / 86400);
+                totalSeconds -= days * 86400;
+                
+                const hours = Math.floor(totalSeconds / 3600);
+                totalSeconds -= hours * 3600;
+                
+                const minutes = Math.floor(totalSeconds / 60);
+                const seconds = totalSeconds % 60;
+            
+                return `${days} Days ${hours} Hours ${minutes} Minutes ${seconds} Seconds`;
+            },
+        
+            displayTimer() {
+                return this.getTimer();
             },
         },
     }

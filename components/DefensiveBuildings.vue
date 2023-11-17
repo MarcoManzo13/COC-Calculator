@@ -9,6 +9,10 @@
                     <v-icon v-else icon="mdi mdi-menu-down"></v-icon>
                 </button>
             </p>
+            <v-card-text v-if="showDefensiveBuildingsTable">
+                <p style="font-size: large; font-style: italic;">Total time until the Defensive Buildings are completely upgraded: <span style="font-weight: 700;">{{ getTimer() }}</span></p>
+                <div @updateTotalTime="updateTotalTime"></div>
+            </v-card-text>
             <v-lazy>
                 <v-table v-if="showDefensiveBuildingsTable">
                   <thead>
@@ -1558,17 +1562,43 @@
         ],
       },
     };
-  },
-  computed: {
-    currentDefensiveBuildings() {
-      return this.DefensiveBuildings[`THLVL${this.THLevelMenu.slice(2)}`] || [];
     },
-  },
-  methods: {
-  toggleTableVisibility() {
-    this.showDefensiveBuildingsTable = !this.showDefensiveBuildingsTable;
-  },
-    },
+        computed: {
+            currentDefensiveBuildings() {
+                return this.DefensiveBuildings[`THLVL${this.THLevelMenu.slice(2)}`] || [];
+            },
+        },
+        methods: {
+            toggleTableVisibility() {
+                this.showDefensiveBuildingsTable = !this.showDefensiveBuildingsTable;
+            },
+            
+            sumProperty(propertyName) {
+                return this.currentDefensiveBuildings.reduce((total, DefensiveBuilding) => total + DefensiveBuilding[propertyName], 0);
+            },
+        
+            getTimer() {
+                let totalSeconds = this.sumProperty('seconds') + this.sumProperty('minutes') * 60 + this.sumProperty('hours') * 3600 + this.sumProperty('days') * 86400;
+                
+                const days = Math.floor(totalSeconds / 86400);
+                totalSeconds -= days * 86400;
+                
+                const hours = Math.floor(totalSeconds / 3600);
+                totalSeconds -= hours * 3600;
+                
+                const minutes = Math.floor(totalSeconds / 60);
+                const seconds = totalSeconds % 60;
+            
+                return `${days} Days ${hours} Hours ${minutes} Minutes ${seconds} Seconds`;
+            },
+        
+            displayTimer() {
+                return this.getTimer();
+            },
+            updateTotalTime(totalTime) {
+                this.$emit('childTotalTimeUpdated', totalTime);
+            },
+        },
     }
 </script>
 
