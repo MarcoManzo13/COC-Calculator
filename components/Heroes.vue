@@ -55,12 +55,12 @@
                 Heroes: {
                     THLVL1: [
                         {
-                            name: 'Barbarian King (Build)',
+                            name: 'Cannon (Build)',
                             seconds: 10,
-                            minutes: 10,
-                            hours: 5,
-                            days: 15,
-                            price: "100,000 Gold",
+                            minutes: 0,
+                            hours: 0,
+                            days: 0,
+                            price: "250 Gold",
                         },
                     ],
                     THLVL9: [

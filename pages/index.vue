@@ -1,6 +1,7 @@
 <template>
     <div>
       <v-card>
+            <!-- Upmost App Bar -->
             <v-app-bar
                 prominent
             >
@@ -12,14 +13,13 @@
                 <v-btn variant="outlined" class="mx-3">Sign In</v-btn>
                 <v-btn variant="outlined" class="mx-3">Sign Up</v-btn>
             </v-app-bar>
+
+            <!-- Left hand Drawer -->
             <v-navigation-drawer
                 v-model="drawer"
                 location="left"
             >
-                <p class="d-flex text-center justify-left ma-5" style="font-size: x-large;">Filters</p>
-                <v-list
-                    :items="items"
-                ></v-list>
+                <p>Hola</p>
             </v-navigation-drawer>
         </v-card>
         <v-main>
@@ -31,28 +31,12 @@
 <script>
 export default {
     data: () => ({
-      drawer: false,
+      drawer: true,
       group: null,
+      divisionFactor: 1,
       items: [
         {
-          title: 'Foo',
-          value: 'foo',
-          icon: 'mdi-home',
-        },
-        {
-          title: 'Bar',
-          value: 'bar',
-          icon: 'mdi-home',
-        },
-        {
-          title: 'Fizz',
-          value: 'fizz',
-          icon: 'mdi-home',
-        },
-        {
-          title: 'Buzz',
-          value: 'buzz',
-          icon: 'mdi-home',
+          title: 'Number of Builders', value: 'foo', icon: 'mdi mdi-home-circle-outline',
         },
       ],
     }),
