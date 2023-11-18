@@ -10,7 +10,12 @@
                 </button>
             </p>
             <v-card-text v-if="showHeroesTable">
-                <p style="font-size: large; font-style: italic;">Total time until the Heroes are completely upgraded: <span style="font-weight: 700;">{{ getTimer() }}</span></p>
+                <p style="font-size: large; font-style: italic;">
+                    Total time until the Heroes are completely upgraded: 
+                    <span style="font-weight: 700;">
+                        {{ getTimer() }}
+                    </span>
+                </p>
             </v-card-text>
             <v-lazy>
                 <v-table v-if="showHeroesTable">
@@ -50,12 +55,12 @@
                 Heroes: {
                     THLVL1: [
                         {
-                            name: 'Yes (Build)',
+                            name: 'Barbarian King (Build)',
                             seconds: 10,
-                            minutes: 0,
-                            hours: 0,
-                            days: 0,
-                            price: "250 Gold",
+                            minutes: 10,
+                            hours: 5,
+                            days: 15,
+                            price: "100,000 Gold",
                         },
                     ],
                     THLVL9: [
@@ -395,10 +400,11 @@
         methods: {
             toggleTableVisibility() {
                 this.showHeroesTable = !this.showHeroesTable;
+                this.$emit('timerUpdatedHeroes', this.getTimer());
             },
             
             sumProperty(propertyName) {
-                return this.currentHeroes.reduce((total, Heroe) => total + Heroe[propertyName], 0);
+                return this.currentHeroes.reduce((total, hero) => total + hero[propertyName], 0);
             },
         
             getTimer() {
@@ -413,12 +419,21 @@
                 const minutes = Math.floor(totalSeconds / 60);
                 const seconds = totalSeconds % 60;
             
-                return `${days} Days ${hours} Hours ${minutes} Minutes ${seconds} Seconds`;
+                const timer = `${days} Days ${hours} Hours ${minutes} Minutes ${seconds} Seconds`;
+
+                this.$emit('timerUpdatedHeroes', timer);
+
+                return timer;
             },
-        
-            displayTimer() {
-                return this.getTimer();
-            },
+        },
+        mounted() {
+            this.getTimer();
+            const timerInterval  = setInterval(() => {
+                this.getTimer();
+            }, 1000);
+        },
+        beforeDestroy() {
+            clearInterval(timerInterval);
         },
     }
 </script>

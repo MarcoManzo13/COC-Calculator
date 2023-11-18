@@ -6,7 +6,7 @@
             >
             <v-app-bar-nav-icon icon="mdi-filter-cog-outline" variant="text" @click.stop="drawer = !drawer" />
                 <v-app-bar-title>
-                    Clash of Clans Calculator
+                    Clash of Clans Time Calculator
                 </v-app-bar-title>
                 <v-spacer></v-spacer>
                 <v-btn variant="outlined" class="mx-3">Sign In</v-btn>

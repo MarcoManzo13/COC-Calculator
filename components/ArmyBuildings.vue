@@ -10,7 +10,12 @@
                 </button>
             </p>
             <v-card-text v-if="showArmyBuildingsTable">
-                <p style="font-size: large; font-style: italic;">Total time until the Army Buildings are completely upgraded: <span style="font-weight: 700;">{{ getTimer() }}</span></p>
+                <p style="font-size: large; font-style: italic;">
+                    Total time until the Army Buildings are completely upgraded: 
+                    <span style="font-weight: 700;">
+                        {{ getTimer() }}
+                    </span>
+                </p>
             </v-card-text>
             <v-lazy>
                 <v-table v-if="showArmyBuildingsTable">
@@ -163,6 +168,7 @@
         methods: {
             toggleTableVisibility() {
                 this.showArmyBuildingsTable = !this.showArmyBuildingsTable;
+                this.$emit('timerUpdatedArmyBuildings', this.getTimer());
             },
             
             sumProperty(propertyName) {
@@ -181,14 +187,22 @@
                 const minutes = Math.floor(totalSeconds / 60);
                 const seconds = totalSeconds % 60;
             
-                return `${days} Days ${hours} Hours ${minutes} Minutes ${seconds} Seconds`;
-            },
-        
-            displayTimer() {
-                return this.getTimer();
+                const timer = `${days} Days ${hours} Hours ${minutes} Minutes ${seconds} Seconds`;
+
+                this.$emit('timerUpdatedArmyBuildings', timer);
+
+                return timer;
             },
         },
-        
+        mounted() {
+            this.getTimer();
+            const timerInterval  = setInterval(() => {
+                this.getTimer();
+            }, 1000);
+        },
+        beforeDestroy() {
+            clearInterval(timerInterval);
+        },
     }
 </script>
 

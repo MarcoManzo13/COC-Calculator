@@ -10,7 +10,12 @@
                 </button>
             </p>
             <v-card-text v-if="showLaboratoryTable">
-                <p style="font-size: large; font-style: italic;">Total time until the Laboratory Troops and Spells are completely upgraded: <span style="font-weight: 700;">{{ getTimer() }}</span></p>
+                <p style="font-size: large; font-style: italic;">
+                    Total time until the Laboratory Troops and Spells are completely upgraded: 
+                    <span style="font-weight: 700;">
+                        {{ getTimer() }}
+                    </span>
+                </p>
             </v-card-text>
             <v-lazy>
                 <v-table v-if="showLaboratoryTable">
@@ -275,6 +280,7 @@
         methods: {
             toggleTableVisibility() {
                 this.showLaboratoryTable = !this.showLaboratoryTable;
+                this.$emit('timerUpdatedLaboratory', this.getTimer());
             },
             
             sumProperty(propertyName) {
@@ -293,12 +299,21 @@
                 const minutes = Math.floor(totalSeconds / 60);
                 const seconds = totalSeconds % 60;
             
-                return `${days} Days ${hours} Hours ${minutes} Minutes ${seconds} Seconds`;
+                const timer = `${days} Days ${hours} Hours ${minutes} Minutes ${seconds} Seconds`;
+
+                this.$emit('timerUpdatedLaboratory', timer);
+
+                return timer;
             },
-        
-            displayTimer() {
-                return this.getTimer();
-            },
+        },
+        mounted() {
+            this.getTimer();
+            const timerInterval  = setInterval(() => {
+                this.getTimer();
+            }, 1000);
+        },
+        beforeDestroy() {
+            clearInterval(timerInterval);
         },
     }
 </script>

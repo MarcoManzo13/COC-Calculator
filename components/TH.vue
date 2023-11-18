@@ -8,18 +8,25 @@
                     </select>
                 </v-card-title>
             </v-card-item>
+            <v-divider/>
+            <v-card-item>
+                <v-card-text>
+                    <p>Total time across all buildings: {{ trapsTimerValue }}</p>
+                </v-card-text>
+            </v-card-item>
         </v-card>
-      <DefensiveBuildings :THLevelMenu="THLevelMenu" :THLevels="THLevels"/>
+        <v-divider />
+      <DefensiveBuildings :THLevelMenu="THLevelMenu" :THLevels="THLevels" @timerUpdatedDefensiveBuildings="updateDefensiveBuildingsTimer"/>
       <v-divider />
-      <ResourceBuildings :THLevelMenu="THLevelMenu" :THLevels="THLevels"/>
+      <ResourceBuildings :THLevelMenu="THLevelMenu" :THLevels="THLevels" @timerUpdatedResourcesBuildings="updateResourcesBuildingsTimer"/>
       <v-divider/>
-      <ArmyBuildings :THLevelMenu="THLevelMenu" :THLevels="THLevels"/>
+      <ArmyBuildings :THLevelMenu="THLevelMenu" :THLevels="THLevels" @timerUpdatedArmyBuildings="updateArmyBuildingsTimer"/>
       <v-divider/>
-      <Heroes :THLevelMenu="THLevelMenu" :THLevels="THLevels"/>
+      <Heroes :THLevelMenu="THLevelMenu" :THLevels="THLevels" @timerUpdatedHeroes="updateHeroesTimer"/>
       <v-divider />
-      <Laboratory :THLevelMenu="THLevelMenu" :THLevels="THLevels"/>
+      <Laboratory :THLevelMenu="THLevelMenu" :THLevels="THLevels" @timerUpdatedLaboratory="updateLaboratoyTimer"/>
       <v-divider />
-      <Traps :THLevelMenu="THLevelMenu" :THLevels="THLevels"/>
+      <Traps :THLevelMenu="THLevelMenu" :THLevels="THLevels" @timerUpdatedTraps="updateTrapsTimer"/>
     </div>
 </template>
   
@@ -29,7 +36,33 @@ export default {
         return {
             THLevelMenu: 'TH9',
             THLevels: Array.from({ length: 15 }, (_, i) => i + 1),
-        }
+            defensiveBuildingsTimerValue: '',
+            resourcesBuildingsTimerValue: '',
+            armyBuildingsTimerValue: '',
+            heroTimerValue: '',
+            laboratoryTimerValue: '',
+            trapsTimerValue: '',
+        };
+    },
+    methods: {
+        updateDefensiveBuildingsTimer(newDefensiveBuildingsTimerValue) {
+            this.defensiveBuildingsTimerValue = newDefensiveBuildingsTimerValue;
+        },
+        updateResourcesBuildingsTimer(newResourcesBuildingsTimerValue) {
+            this.resourcesBuildingsTimerValue = newResourcesBuildingsTimerValue;
+        },
+        updateArmyBuildingsTimer(newArmyBuildingsTimerValue) {
+            this.armyBuildingsTimerValue = newArmyBuildingsTimerValue;
+        },
+        updateHeroesTimer(newHeroTimerValue) {
+            this.heroTimerValue = newHeroTimerValue;
+        },
+        updateLaboratoyTimer(newLaboratoryTimerValue) {
+            this.laboratoryTimerValue = newLaboratoryTimerValue;
+        },
+        updateTrapsTimer(newTrapsTimerValue) {
+            this.trapsTimerValue = newTrapsTimerValue;
+        },
     },
 };
 </script>
